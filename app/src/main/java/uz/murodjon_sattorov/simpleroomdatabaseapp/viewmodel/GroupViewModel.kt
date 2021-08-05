@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uz.murodjon_sattorov.simpleroomdatabaseapp.data.GroupDatabase
-import uz.murodjon_sattorov.simpleroomdatabaseapp.data.GroupRepository
+import uz.murodjon_sattorov.simpleroomdatabaseapp.repository.GroupRepository
 import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 
 class GroupViewModel(application: Application) : AndroidViewModel(application) {

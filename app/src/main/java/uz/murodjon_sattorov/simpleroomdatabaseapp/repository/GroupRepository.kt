@@ -1,6 +1,7 @@
-package uz.murodjon_sattorov.simpleroomdatabaseapp.data
+package uz.murodjon_sattorov.simpleroomdatabaseapp.repository
 
 import androidx.lifecycle.LiveData
+import uz.murodjon_sattorov.simpleroomdatabaseapp.data.GroupDao
 import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 
 class GroupRepository(private val groupDao: GroupDao) {
