@@ -1,4 +1,4 @@
-package uz.murodjon_sattorov.simpleroomdatabaseapp.data
+package uz.murodjon_sattorov.simpleroomdatabaseapp.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

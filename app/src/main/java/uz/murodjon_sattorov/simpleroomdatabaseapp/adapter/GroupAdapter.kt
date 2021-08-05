@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import uz.murodjon_sattorov.simpleroomdatabaseapp.R
-import uz.murodjon_sattorov.simpleroomdatabaseapp.data.Group
+import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 import uz.murodjon_sattorov.simpleroomdatabaseapp.databinding.GroupItemBinding
 import java.util.*
 
@@ -43,8 +43,8 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         holder.adapterBinding.groupName.text = currentItem.title
         holder.adapterBinding.groupLatter.text = currentItem.title.toUpperCase(Locale.ROOT)[0].toString()
 
-        holder.adapterBinding.root.setOnClickListener {
-            Toast.makeText(holder.adapterBinding.root.context, "Clicked $position", Toast.LENGTH_SHORT).show()
+        holder.adapterBinding.layout.setOnClickListener {
+            Toast.makeText(holder.adapterBinding.layout.context, "Clicked $position", Toast.LENGTH_SHORT).show()
         }
 
     }

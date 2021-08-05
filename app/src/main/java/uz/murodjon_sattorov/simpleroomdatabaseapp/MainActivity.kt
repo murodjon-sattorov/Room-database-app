@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import uz.murodjon_sattorov.simpleroomdatabaseapp.adapter.GroupAdapter
-import uz.murodjon_sattorov.simpleroomdatabaseapp.data.Group
-import uz.murodjon_sattorov.simpleroomdatabaseapp.data.GroupViewModel
+import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
+import uz.murodjon_sattorov.simpleroomdatabaseapp.viewmodel.GroupViewModel
 import uz.murodjon_sattorov.simpleroomdatabaseapp.databinding.ActivityMainBinding
 import uz.murodjon_sattorov.simpleroomdatabaseapp.dialog.AddGroupDialog
 

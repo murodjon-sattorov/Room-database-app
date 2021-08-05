@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.InternalCoroutinesApi
+import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 
 @Database(entities = [Group::class], version = 1, exportSchema = false)
 abstract class GroupDatabase : RoomDatabase() {
