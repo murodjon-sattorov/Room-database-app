@@ -9,8 +9,8 @@ class UpdateGroupDialog(context: Context) : AlertDialog(context) {
 
     private var dialogBinding: AddGroupDialogBinding =
         AddGroupDialogBinding.inflate(LayoutInflater.from(context))
-    private var onSaveClickListener: OnSaveClickListener? = null
-    fun setOnSaveClickListener(onSaveClickListener: OnSaveClickListener){
+    private var onSaveClickListener: OnUpdateSaveClickListener? = null
+    fun setOnUpdateSaveClickListener(onSaveClickListener: OnUpdateSaveClickListener) {
         this.onSaveClickListener = onSaveClickListener
     }
 
@@ -20,11 +20,11 @@ class UpdateGroupDialog(context: Context) : AlertDialog(context) {
 
         dialogBinding.save.setOnClickListener {
             if (dialogBinding.nameInsert.text.toString().isNotEmpty()) {
-                if (onSaveClickListener != null){
-                    onSaveClickListener!!.onSaveClick(dialogBinding.nameInsert.text.toString())
+                if (onSaveClickListener != null) {
+                    onSaveClickListener!!.onUpdateSaveClick(dialogBinding.nameInsert.text.toString())
                     dismiss()
                     cancel()
-                }else{
+                } else {
                     dialogBinding.nameInsert.error = "Empty space"
                 }
             }
@@ -34,8 +34,8 @@ class UpdateGroupDialog(context: Context) : AlertDialog(context) {
 
     }
 
-    interface OnSaveClickListener {
-        fun onSaveClick(s: String)
+    interface OnUpdateSaveClickListener {
+        fun onUpdateSaveClick(s: String)
     }
 
 }

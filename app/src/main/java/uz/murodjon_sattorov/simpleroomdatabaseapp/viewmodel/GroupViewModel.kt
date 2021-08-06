@@ -27,4 +27,10 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateGroup(group: Group){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateGroup(group)
+        }
+    }
+
 }

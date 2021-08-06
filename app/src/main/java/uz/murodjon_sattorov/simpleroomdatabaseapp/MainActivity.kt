@@ -12,6 +12,7 @@ import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 import uz.murodjon_sattorov.simpleroomdatabaseapp.viewmodel.GroupViewModel
 import uz.murodjon_sattorov.simpleroomdatabaseapp.databinding.ActivityMainBinding
 import uz.murodjon_sattorov.simpleroomdatabaseapp.dialog.AddGroupDialog
+import uz.murodjon_sattorov.simpleroomdatabaseapp.dialog.UpdateGroupDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,14 +29,17 @@ class MainActivity : AppCompatActivity() {
         mainBinding.recycler.layoutManager = GridLayoutManager(this, 1)
 
         mainBinding.floatingActionButton.setOnClickListener {
-            openDialog()
+            openAddDialog()
         }
 
         loadData()
 
+        clickUpdateButton()
+
     }
 
-    private fun openDialog() {
+    //data save area
+    private fun openAddDialog() {
         val addGroupDialog = AddGroupDialog(this)
         addGroupDialog.setTitle("Add new group")
         addGroupDialog.show()
@@ -51,13 +55,45 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun saveData(s:String) {
+    private fun saveData(s: String) {
         groupViewModel =
             ViewModelProvider(this).get(GroupViewModel::class.java)
         Log.e("TAG", "saveData: $groupViewModel")
         val group = Group(0, s)
         //add data to database
         groupViewModel.addGroup(group)
+        loadData()
+        Toast.makeText(this, "Successful added!", Toast.LENGTH_SHORT).show()
+    }
+
+
+    //data update area
+    private fun clickUpdateButton() {
+        adapter.setOnUpdateClickListener(object : GroupAdapter.OnUpdateClickListener {
+            override fun onUpdateClick(id: Int) {
+                val updateDialog = UpdateGroupDialog(this@MainActivity)
+                updateDialog.setTitle("Update group title")
+                updateDialog.show()
+                updateDialog.setOnUpdateSaveClickListener(object :
+                    UpdateGroupDialog.OnUpdateSaveClickListener {
+                    override fun onUpdateSaveClick(s: String) {
+                        if (s.isNotEmpty()) {
+                            //update data in room database
+                            updateData(id, s)
+                        } else {
+                            Toast.makeText(this@MainActivity, "Is not update data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    private fun updateData(id: Int, s: String) {
+        val mGroupViewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
+        val group = Group(id, s)
+        //update data in database
+        mGroupViewModel.updateGroup(group)
         loadData()
         Toast.makeText(this, "Successful added!", Toast.LENGTH_SHORT).show()
     }

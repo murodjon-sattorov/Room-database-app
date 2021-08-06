@@ -12,4 +12,8 @@ class GroupRepository(private val groupDao: GroupDao) {
         groupDao.addData(group)
     }
 
+    fun updateGroup(group: Group){
+        groupDao.updateData(group)
+    }
+
 }
