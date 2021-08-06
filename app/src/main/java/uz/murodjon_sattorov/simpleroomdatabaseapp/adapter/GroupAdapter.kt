@@ -1,28 +1,25 @@
 package uz.murodjon_sattorov.simpleroomdatabaseapp.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import uz.murodjon_sattorov.simpleroomdatabaseapp.R
 import uz.murodjon_sattorov.simpleroomdatabaseapp.model.Group
 import uz.murodjon_sattorov.simpleroomdatabaseapp.databinding.GroupItemBinding
-import uz.murodjon_sattorov.simpleroomdatabaseapp.dialog.UpdateGroupDialog
 import java.util.*
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     private var groupList = emptyList<Group>()
-    private var onUpdateClickListener: OnUpdateClickListener? = null
+    private var onUpdateDeleteClickListener: OnUpdateDeleteClickListener? = null
 
     fun setGroup(group: List<Group>) {
         this.groupList = group
         notifyDataSetChanged()
     }
 
-    fun setOnUpdateClickListener(onUpdateClickListener: OnUpdateClickListener) {
-        this.onUpdateClickListener = onUpdateClickListener
+    fun setOnUpdateClickListener(onUpdateClickListener: OnUpdateDeleteClickListener) {
+        this.onUpdateDeleteClickListener = onUpdateClickListener
     }
 
     class ViewHolder(var adapterBinding: GroupItemBinding) :
@@ -50,7 +47,11 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
             currentItem.title.toUpperCase(Locale.ROOT)[0].toString()
 
         holder.adapterBinding.updateGroup.setOnClickListener {
-            onUpdateClickListener?.onUpdateClick(position + 1)
+            onUpdateDeleteClickListener?.onUpdateClick(currentItem.id)
+        }
+
+        holder.adapterBinding.deleteGroup.setOnClickListener {
+            onUpdateDeleteClickListener?.onDeleteClick(currentItem.id, currentItem.title)
         }
 
     }
@@ -59,8 +60,9 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         return groupList.size
     }
 
-    interface OnUpdateClickListener {
+    interface OnUpdateDeleteClickListener {
         fun onUpdateClick(id: Int)
+        fun onDeleteClick(id: Int, title: String)
     }
 
 }

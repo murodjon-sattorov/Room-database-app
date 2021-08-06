@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.toColorInt
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     //data update area
     private fun clickUpdateButton() {
-        adapter.setOnUpdateClickListener(object : GroupAdapter.OnUpdateClickListener {
+        adapter.setOnUpdateClickListener(object : GroupAdapter.OnUpdateDeleteClickListener {
             override fun onUpdateClick(id: Int) {
                 val updateDialog = UpdateGroupDialog(this@MainActivity)
                 updateDialog.setTitle("Update group title")
@@ -81,10 +83,27 @@ class MainActivity : AppCompatActivity() {
                             //update data in room database
                             updateData(id, s)
                         } else {
-                            Toast.makeText(this@MainActivity, "Is not update data", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Is not update data",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 })
+            }
+
+            override fun onDeleteClick(id: Int, title: String) {
+                val alertDialog = AlertDialog.Builder(this@MainActivity)
+                alertDialog.setTitle("Leave group")
+                alertDialog.setMessage("Are you sure you want to leave $title")
+                alertDialog.setPositiveButton("Yes") { _, _ ->
+                    deleteData(id, title);
+                }
+                alertDialog.setNegativeButton("No") { _, _ ->
+
+                }
+                alertDialog.create().show()
             }
         })
     }
@@ -96,6 +115,15 @@ class MainActivity : AppCompatActivity() {
         mGroupViewModel.updateGroup(group)
         loadData()
         Toast.makeText(this, "Successful added!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteData(id: Int, title: String) {
+        val mGroupViewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
+        val group = Group(id, title)
+        //update data in database
+        mGroupViewModel.deleteGroup(group)
+        loadData()
+        Toast.makeText(this, "Successful deleted!", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadData() {

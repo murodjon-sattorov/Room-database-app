@@ -16,4 +16,8 @@ class GroupRepository(private val groupDao: GroupDao) {
         groupDao.updateData(group)
     }
 
+    fun deleteGroup(group: Group){
+        groupDao.deleteData(group)
+    }
+
 }
